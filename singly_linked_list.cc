@@ -141,7 +141,55 @@ list_t delete_tail_elem(list_t list) {
     return list;
 }
 
+//PRIMITIVE OF ASD*****************************************************************************************************
+
+list_t new_list() {
+    return NULL;
+}
+
+bool is_empty_list(list_t list) {
+    return list == NULL;
+}
+
+void insert_next(node_t *node_before, node_t *node) {
+    node->next = node_before->next;
+    node_before->next = node;
+}
+
+node_t *search_pos(list_t list, int i) {
+    list_t tmp = list;
+    int j = 0;
+    while(j<i && tmp!=NULL) {
+        tmp = tmp->next;
+        j++;
+    }
+    return tmp;
+}
+
+void insert_pos(list_t list, node_t *node, int i) {
+    node_t *p = search_pos(list, i-1);
+    if(p == NULL)
+        return;
+    insert_next(p, node);
+}
+
 int main() {
+    list_t list = new_list();
+    if(is_empty_list(list))
+        cout << "La lista è vuota." << endl;
+    list = make_list(5);
+
+    /*
+    0 1 2 3 4
+    9 7 3 8 5
+    */
+
+    node_t *node = new node_t;
+    node->value = 100;
+    node->next = NULL;
+    
+    insert_pos(list, node, 2);
+    print_list(list);
 
     return 0;
 
