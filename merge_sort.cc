@@ -29,7 +29,7 @@ void merge(int arr[], int i, int k, int j) {
     int l = i;
     int r = k + 1;
     int t = 0;
-    int tmp[j-i];
+    int tmp[j-i+1];
     while(l<=k && r<=j) {
         if(arr[l] <= arr[r]) {
             tmp[t] = arr[l];
