@@ -7,11 +7,13 @@ int partition(int [], int, int);
 
 int main() {
 
-    int arr[7] = {3, 1, 2, 7, 6, 5, 4};
+    const int N = 7;
 
-    quick_sort(arr, 0, 7-1);
+    int arr[N] = {3, 1, 2, 7, 6, 5, 4};
 
-    for(int i=0; i<7; i++)
+    quick_sort(arr, 0, N-1);
+
+    for(int i=0; i<N; i++)
         cout << arr[i] << endl;
 
     return 0;
