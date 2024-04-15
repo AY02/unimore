@@ -33,7 +33,7 @@ int min(int arr[], const int N, int i) {
 }
 
 void selection_sort(int arr[], const int N, int i) {
-    if(i == N-2)
+    if(i == N-1)
         return;
     int k = min(arr, N, i);
     swap(arr[k], arr[i]);
