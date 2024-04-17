@@ -4,7 +4,7 @@ using namespace std;
 #include "../type/int/int_t.h"
 #include "list_t.h"
 
-//Programmazione II*******************************************************************
+
 value_t head(list_t list) {
   return list->value;
 }
