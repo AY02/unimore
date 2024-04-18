@@ -30,7 +30,7 @@ value_t first(queue_t queue) {
 value_t dequeue(queue_t &queue) {
   value_t x;
   copy_value(x, first(queue));
-  queue.head = tail(queue.head);
+  queue.head = delete_elem(queue.head, queue.head);
   if(queue.head == NULL)
     queue.tail = NULL;
   return x;
