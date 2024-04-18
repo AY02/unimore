@@ -1,12 +1,10 @@
 #include <iostream>
 using namespace std;
 
-#include "./modules/type/string/string_t.h"
-#include "./modules/tree/tree_t.h"
-#include "./modules/tree/functions/functions.h"
+#include "string_t.h"
+#include "tree_t.h"
+#include "functions.h"
 
 int main() {
-
-  
   return 0;
 }

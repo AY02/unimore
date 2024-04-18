@@ -81,48 +81,54 @@ node_t *search(bst_t tree, key_t key) {
     return NULL;
 }
 
-void update_parent(node_t *p, node_t *q) {
-    if(p == get_left(get_parent(p)))
-        p->parent->left = q;
-    else
-        p->parent->right = q;
+void update_parent_child(node_t *old_child, node_t *new_child) {
+    if(old_child == get_left(get_parent(old_child))) //il vecchio figlio e' il figlio sinistro
+        old_child->parent->left = new_child;
+    else //Il vecchio figlio e' il figlio destro
+        old_child->parent->right = new_child;
 }
 
 void delete_elem(bst_t &tree, node_t *node) {
-    node_t *node_to_swap;
-    if(get_left(node) == NULL) {
-        if(get_right(node) == NULL) //Nodo foglia
-            node_to_swap = NULL;
-        else //Nodo con solo figlio destro
-            node_to_swap = get_right(node);
-    }
-    else if(get_right(node) == NULL) //Nodo con solo figlio sinistro
-        node_to_swap = get_left(node);
-    else { //Nodo con due figli
-        //Cerco il nodo più grande nel sottoalbero di sinistra
-        node_t *tmp = get_left(node);
-        while(get_right(tmp) != NULL) //Cerco l'elemento più a destra del sottoalbero di sinistra
-            tmp = get_right(tmp);
-        if(get_left(tmp) == NULL) //Nodo foglia
-            update_parent(tmp, NULL);
-        else { //Nodo con solo figlio sinistro
-            tmp->parent->right = get_left(tmp);
-            tmp->left->parent = get_parent(tmp);
+
+    if(tree == NULL || node == NULL)
+        return;
+
+    node_t *new_child;
+
+    if(get_left(node) == NULL && get_right(node) == NULL) //Il nodo e' una foglia
+        new_child = NULL;
+    else if(get_left(node) == NULL && get_right(node) != NULL) //Il nodo ha solo il figlio destro
+        new_child = get_right(node);
+    else if(get_left(node) != NULL && get_right(node) == NULL) //Il nodo ha solo il figlio sinistro
+        new_child = get_left(node);
+    else {
+        //Il nodo ha due figli: Cerco il nodo più grande nel sottoalbero di sinistra
+        //Tale nodo è quello piu' a destra nel sottoalbero di sinistra
+        node_t *max_left_node = get_left(node);
+        while(get_right(max_left_node) != NULL)
+            max_left_node = get_right(max_left_node);
+        if(get_left(max_left_node) == NULL) //Il nodo e' una foglia
+            update_parent_child(max_left_node, NULL);
+        else { //Il nodo ha solo il figlio sinistro
+            max_left_node->parent->right = get_left(max_left_node);
+            max_left_node->left->parent = get_parent(max_left_node);
         }
-        //Sostituisco tmp a node
-        tmp->left = get_left(node);
-        tmp->right = get_right(node);
-        if(get_right(tmp) != NULL)
-            tmp->right->parent = tmp;
-        if(get_left(tmp) != NULL)
-            tmp->left->parent = tmp;
-        node_to_swap = tmp;
+        //Sostituisco il nuovo nodo con quello vecchio
+        max_left_node->left = get_left(node);
+        max_left_node->right = get_right(node);
+        max_left_node->left->parent = max_left_node;
+        max_left_node->right->parent = max_left_node;
+        new_child = max_left_node;
     }
-    if(node_to_swap != NULL)
-        node_to_swap->parent = get_parent(node);
+
+    if(new_child != NULL)
+        new_child->parent = get_parent(node);
+
     if(node == tree)
-        tree = node_to_swap;
+        tree = new_child;
     else
-        update_parent(node, node_to_swap);
+        update_parent_child(node, new_child);
+
     delete node;
+
 }

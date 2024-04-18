@@ -28,9 +28,9 @@ int main() {
 
   print_bst(tree);
 
-  if(search(tree, 9) != NULL) {
-    cout << "Trovato: " << search(tree, 9)->value << endl;
-  }
+  delete_elem(tree, search(tree, 12));
+
+  print_bst(tree);
 
   return 0;
 

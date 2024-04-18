@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "../type/string/string_t.h"
+#include "string_t.h"
 #include "tree_t.h"
 
 node_t *new_node(value_t value) {

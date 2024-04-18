@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 
-#include "../../type/string/string_t.h"
-#include "../tree_t.h"
+#include "string_t.h"
+#include "tree_t.h"
 #include "functions.h"
 
 void serialize(tree_t tree) {
