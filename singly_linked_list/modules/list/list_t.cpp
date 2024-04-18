@@ -48,7 +48,7 @@ node_t *search(list_t list, value_t value) {
 }
 
 list_t copy(list_t old_l) {
-  list_t new_l = new node_t;
+  list_t new_l = NULL;
   node_t *current;
   node_t *previous = NULL;
   while(old_l != NULL) {
