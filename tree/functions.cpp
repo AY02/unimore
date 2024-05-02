@@ -4,6 +4,7 @@ using namespace std;
 #include "string_t.h"
 #include "tree_t.h"
 #include "functions.h"
+#include "bfs_queue_t.h"
 
 void serialize(tree_t tree) {
   cout << "(";
@@ -28,4 +29,20 @@ int get_height(tree_t tree) {
     t = get_next_sibling(t);
   }
   return max + 1;
+}
+
+int get_size(tree_t tree) {
+  int count = 0;
+  bfs_queue_t c = new_queue();
+  c = enqueue(c, tree);
+  while(!is_bfs_queue_empty(c)) {
+    node_t *n = dequeue(c);
+    count++;
+    tree_t tmp = get_first_child(n);
+    while(tmp != NULL) {
+      c = enqueue(c, tmp);
+      tmp = get_next_sibling(tmp);
+    }
+  }
+  return count;
 }

@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 
-#include "./modules/type/int/int_t.h"
-#include "./modules/list/list_t.h"
-#include "./modules/list/functions/functions.h"
+#include "int_t.h"
+#include "list_t.h"
+#include "functions.h"
 
 int main() {
   

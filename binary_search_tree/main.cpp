@@ -19,16 +19,16 @@ int main() {
     cin >> key;
     cout << "Inserisci il valore informativo: ";
     cin >> value;
-    node_t *node = new_node(key, value);
+    bst_node_t *node = bst_new_node(key, value);
     cout << "Nodo creato: (" << key << ", " << value << ")" << endl;
-    insert_elem(tree, node);
+    bst_insert(tree, node);
     cout << "Vuoi continuare?(Si: 1, No: 0): ";
     cin >> not_done;
   }
 
   print_bst(tree);
 
-  delete_elem(tree, search(tree, 12));
+  bst_delete(tree, bst_search(tree, 12));
 
   print_bst(tree);
 

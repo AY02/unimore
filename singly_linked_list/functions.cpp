@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 
-#include "../../type/int/int_t.h"
-#include "../list_t.h"
+#include "int_t.h"
+#include "list_t.h"
 #include "functions.h"
 
 void print_list(list_t list) {

@@ -6,31 +6,28 @@ using namespace std;
 #include "string_t.h"
 #include "binary_search_tree_t.h"
 
-static void copy_key(key_t &dest, key_t src) {
+static key_t copy_key(key_t &dest, key_t src) {
     dest = src;
+    return dest;
 }
 
 static key_t compare_key(key_t s1, key_t s2) {
     return s1 - s2;
 }
 
-node_t *new_node(key_t key, value_t value) {
-    node_t *node = new node_t;
+bst_node_t *bst_new_node(key_t key, value_t value) {
+    bst_node_t *node = new bst_node_t;
     copy_value(node->value, value);
     copy_key(node->key, key);
     node->parent = node->right = node->left = NULL;
     return node;
 }
 
-key_t get_key(node_t *node) {
+key_t get_key(bst_node_t *node) {
     return node->key;
 }
 
-void print_key(key_t key) {
-    cout << key;
-}
-
-value_t get_value(node_t *node) {
+value_t get_value(bst_node_t *node) {
     return node->value;
 }
 
@@ -42,18 +39,18 @@ bst_t get_right(bst_t tree) {
     return tree->right;
 }
 
-node_t *get_parent(node_t *node) {
+bst_node_t *get_parent(bst_node_t *node) {
     return node->parent;
 }
 
-void insert_elem(bst_t &tree, node_t *node) {
+void bst_insert(bst_t &tree, bst_node_t *node) {
     if(tree == NULL) {
         tree = node;
         return;
     }
     if(compare_key(get_key(node), get_key(tree)) < 0) {
         if(get_left(tree) != NULL)
-            insert_elem(tree->left, node);
+            bst_insert(tree->left, node);
         else {
             tree->left = node;
             node->parent = tree;
@@ -61,7 +58,7 @@ void insert_elem(bst_t &tree, node_t *node) {
     }
     else {
         if(get_right(tree) != NULL)
-            insert_elem(tree->right, node);
+            bst_insert(tree->right, node);
         else {
             tree->right = node;
             node->parent = tree;
@@ -69,7 +66,7 @@ void insert_elem(bst_t &tree, node_t *node) {
     }
 }
 
-node_t *search(bst_t tree, key_t key) {
+bst_node_t *bst_search(bst_t tree, key_t key) {
     while(tree != NULL) {
         if(compare_key(key, get_key(tree)) == 0)
             return tree;
@@ -81,19 +78,19 @@ node_t *search(bst_t tree, key_t key) {
     return NULL;
 }
 
-void update_parent_child(node_t *old_child, node_t *new_child) {
+static void update_parent_child(bst_node_t *old_child, bst_node_t *new_child) {
     if(old_child == get_left(get_parent(old_child))) //il vecchio figlio e' il figlio sinistro
         old_child->parent->left = new_child;
     else //Il vecchio figlio e' il figlio destro
         old_child->parent->right = new_child;
 }
 
-void delete_elem(bst_t &tree, node_t *node) {
+void bst_delete(bst_t &tree, bst_node_t *node) {
 
     if(tree == NULL || node == NULL)
         return;
 
-    node_t *new_child;
+    bst_node_t *new_child;
 
     if(get_left(node) == NULL && get_right(node) == NULL) //Il nodo e' una foglia
         new_child = NULL;
@@ -104,7 +101,7 @@ void delete_elem(bst_t &tree, node_t *node) {
     else {
         //Il nodo ha due figli: Cerco il nodo più grande nel sottoalbero di sinistra
         //Tale nodo è quello piu' a destra nel sottoalbero di sinistra
-        node_t *max_left_node = get_left(node);
+        bst_node_t *max_left_node = get_left(node);
         while(get_right(max_left_node) != NULL)
             max_left_node = get_right(max_left_node);
         if(get_left(max_left_node) == NULL) //Il nodo e' una foglia
@@ -131,4 +128,8 @@ void delete_elem(bst_t &tree, node_t *node) {
 
     delete node;
 
+}
+
+void print_key(key_t key) {
+    cout << key;
 }

@@ -1,11 +1,11 @@
 #include <iostream>
 using namespace std;
 
-#include "../type/char/char_t.h"
+#include "char_t.h"
 #include "binary_tree_t.h"
 
-node_t *new_node(value_t value) {
-  node_t *node = new node_t;
+bt_node_t *new_node(value_t value) {
+  bt_node_t *node = new bt_node_t;
   copy_value(node->value, value);
   node->parent = node->right = node->left = NULL;
   return node;
@@ -21,18 +21,18 @@ void insert_right(binary_tree_t parent, binary_tree_t right) {
   right->parent = parent;
 }
 
-node_t *get_parent(node_t *node) {
+bt_node_t *get_parent(bt_node_t *node) {
   return node->parent;
 }
 
-node_t *get_left(node_t *node) {
+bt_node_t *get_left(bt_node_t *node) {
   return node->left;
 }
 
-node_t *get_right(node_t *node) {
+bt_node_t *get_right(bt_node_t *node) {
   return node->right;
 }
 
-value_t get_info(node_t *node) {
+value_t get_info(bt_node_t *node) {
   return node->value;
 }
