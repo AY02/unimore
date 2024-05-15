@@ -1,8 +1,10 @@
 #include <iostream>
 using namespace std;
 
-#include "char_t.h"
+
+#include "value_t.h"
 #include "binary_tree_t.h"
+
 
 bt_node_t *new_node(value_t value) {
   bt_node_t *node = new bt_node_t;

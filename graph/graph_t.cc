@@ -1,7 +1,9 @@
 #include <iostream>
 using namespace std;
 
+
 #include "graph_t.h"
+
 
 graph_t new_graph(int dim) {
     adj_list_t *nodes = new adj_list_t[dim];

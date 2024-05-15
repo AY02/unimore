@@ -1,9 +1,11 @@
 #include <iostream>
 using namespace std;
 
-#include "string_t.h"
+
+#include "value_t.h"
 #include "binary_search_tree_t.h"
 #include "functions.h"
+
 
 void print_bst(bst_t tree) {
     if(tree == NULL)

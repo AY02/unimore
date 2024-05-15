@@ -1,10 +1,12 @@
 #include <iostream>
 using namespace std;
 
+
 #include "string_t.h"
 #include "tree_t.h"
 #include "functions.h"
 #include "bfs_queue_t.h"
+
 
 void serialize(tree_t tree) {
   cout << "(";

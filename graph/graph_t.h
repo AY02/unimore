@@ -1,6 +1,7 @@
 #ifndef GRAPH_T_H
 #define GRAPH_T_H
 
+
 struct adj_node_t {
     int node;
     float weight;
@@ -23,5 +24,6 @@ adj_list_t get_adj_list(graph_t, int);
 int get_adj_node(adj_node_t*);
 float get_adj_weight(adj_node_t*);
 adj_list_t get_next_adj(adj_list_t);
+
 
 #endif

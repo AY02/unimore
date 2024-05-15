@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "int_t.h"
+#include "value_t.h"
 
 int compare_value(value_t n1, value_t n2) {
   return n1 == n2;

@@ -1,3 +1,7 @@
+#ifndef BINARY_TREE_T_H
+#define BINARY_TREE_T_H
+
+
 struct bt_node_t {
   value_t value;
   bt_node_t *parent;
@@ -15,3 +19,6 @@ bt_node_t *get_parent(bt_node_t*);
 bt_node_t *get_left(bt_node_t*);
 bt_node_t *get_right(bt_node_t*);
 value_t get_info(bt_node_t*);
+
+
+#endif

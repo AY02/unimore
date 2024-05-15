@@ -3,7 +3,7 @@
 
 
 struct bfs_node_t {
-    node_t *value;
+    int value;
     bfs_node_t *next;
 };
 
@@ -14,9 +14,9 @@ struct bfs_queue_t {
     bfs_node_t *tail;
 };
 
-bfs_queue_t enqueue(bfs_queue_t, node_t*);
-node_t *dequeue(bfs_queue_t& );
-node_t *first(bfs_queue_t);
+bfs_queue_t enqueue(bfs_queue_t, int);
+int dequeue(bfs_queue_t& );
+int first(bfs_queue_t);
 bool is_bfs_queue_empty(bfs_queue_t);
 bfs_queue_t new_queue();
 

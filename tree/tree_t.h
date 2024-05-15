@@ -1,3 +1,7 @@
+#ifndef TREE_T_H
+#define TREE_T_H
+
+
 struct node_t {
   value_t value;
   node_t *parent;
@@ -15,3 +19,6 @@ value_t get_info(node_t*);
 node_t *get_parent(node_t*);
 node_t *get_first_child(node_t*);
 node_t *get_next_sibling(node_t*);
+
+
+#endif

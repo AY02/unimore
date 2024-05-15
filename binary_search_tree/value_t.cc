@@ -2,7 +2,9 @@
 #include <cstring>
 using namespace std;
 
-#include "string_t.h"
+
+#include "value_t.h"
+
 
 int compare_value(value_t str1, value_t str2) {
   return strcmp(str1, str2);

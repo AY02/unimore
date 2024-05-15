@@ -1,7 +1,9 @@
 #include <iostream>
 using namespace std;
 
-#include "char_t.h"
+
+#include "value_t.h"
+
 
 int compare_value(value_t c1, value_t c2) {
   return c1 == c2;

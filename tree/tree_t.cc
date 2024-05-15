@@ -1,8 +1,10 @@
 #include <iostream>
 using namespace std;
 
-#include "string_t.h"
+
+#include "value_t.h"
 #include "tree_t.h"
+
 
 node_t *new_node(value_t value) {
   node_t *node = new node_t;

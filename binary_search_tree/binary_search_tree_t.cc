@@ -1,10 +1,11 @@
 #include <iostream>
+#include <cstring>
 using namespace std;
 
-#include <cstring>
 
-#include "string_t.h"
+#include "value_t.h"
 #include "binary_search_tree_t.h"
+
 
 static key_t copy_key(key_t &dest, key_t src) {
     dest = src;

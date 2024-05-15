@@ -1,3 +1,7 @@
+#ifndef BINARY_SEARCH_TREE_T_H
+#define BINARY_SEARCH_TREE_T_H
+
+
 typedef int key_t;
 
 struct bst_node_t {
@@ -27,3 +31,6 @@ bst_node_t *bst_search(bst_t, key_t);
 void bst_delete(bst_t &, bst_node_t*);
 
 void print_key(key_t);
+
+
+#endif

@@ -1,10 +1,14 @@
 #include <iostream>
 using namespace std;
 
-#include "string_t.h"
-#include "tree_t.h"
-#include "functions.h"
+
+#include "value_t.h"
+#include "binary_tree_t.h"
+
 
 int main() {
+
+
   return 0;
+  
 }
