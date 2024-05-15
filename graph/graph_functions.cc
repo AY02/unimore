@@ -72,7 +72,7 @@ int g_build_main(int argc, char *argv[]) {
 
     f_in.close();
 
-    bool *arrived = connected(graph, 1);
+    bool *arrived = connected(graph, 1, false);
     bool is_connected = true;
     for(int i=0; i<dim; i++)
         if(!arrived[i]) {
@@ -86,18 +86,27 @@ int g_build_main(int argc, char *argv[]) {
         
     connected_component(graph);
 
+    int node;
+    cout << "Scegli la radice dell'albero di copertura: ";
+    cin >> node;
+    connected(graph, node, true);
+
     return 0;
 
 }
 
 //bool connected(graph_t graph, int src) {
-bool *connected(graph_t graph, int src) {
+bool *connected(graph_t graph, int src, bool show_spanning_tree) {
 
     int size = get_dim(graph);
     
     bool *arrived = new bool[size];
-    for(int i=0; i<size; i++)
+    int *parent = new int[size];
+
+    for(int i=0; i<size; i++) {
         arrived[i] = false;
+        parent[i] = -1;
+    }
 
     bfs_queue_t queue = new_queue();
     arrived[src-1] = true;
@@ -112,17 +121,24 @@ bool *connected(graph_t graph, int src) {
             int i = get_adj_node(node);
             if(!arrived[i-1]) {
                 arrived[i-1] = true;
+                parent[i-1] = tmp-1;
                 queue = enqueue(queue, i);
             }
         }
     }
 
-    /*
+    
     for(int i=0; i<size; i++)
         if(!arrived[i])
-            return false;
-    return true;
-    */
+            return arrived;
+
+    if(show_spanning_tree) {
+        cout << "Spanning Tree del nodo " << src << ":" << endl;
+        for(int i=0; i<size; i++)
+            if(parent[i] != -1)
+                cout << "Il padre del nodo " << i+1 << " e' il nodo " << parent[i]+1 << endl;
+    }
+
     return arrived;
 
 }
@@ -145,7 +161,7 @@ void connected_component(graph_t graph) {
         if(local_src == -1)
             break;
 
-        bool *local_arrived = connected(graph, local_src+1);
+        bool *local_arrived = connected(graph, local_src+1, false);
         cout << "Componente connessa trovata: ";
         for(int i=0; i<size; i++) {
             if(local_arrived[i])
