@@ -14,11 +14,11 @@ struct bfs_queue_t {
     bfs_node_t *tail;
 };
 
-bfs_queue_t enqueue(bfs_queue_t, int);
-int dequeue(bfs_queue_t& );
-int first(bfs_queue_t);
+bfs_queue_t bfs_enqueue(bfs_queue_t, int);
+int bfs_dequeue(bfs_queue_t& );
+int bfs_first(bfs_queue_t);
 bool is_bfs_queue_empty(bfs_queue_t);
-bfs_queue_t new_queue();
+bfs_queue_t new_bfs_queue();
 
 
 #endif
