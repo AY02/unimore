@@ -13,16 +13,18 @@ using namespace std;
 
 static const int ROOT = -1;
 
-static void dijkistra_init(graph_t graph, int src, float *dist, int *parent) {
-	for(int i=0; i<get_dim(graph); i++) {
-		dist[i] = FLT_MAX;
-		parent[i] = ROOT;
-	}
-	dist[src-1] = 0;
+static void dijkistra_init(graph_t graph, int src, float *dist, int *parent, bool *in_tree) {
+  for(int i=0; i<get_dim(graph); i++) {
+    dist[i] = FLT_MAX;
+    parent[i] = ROOT;
+    in_tree[i] = false;
+  }
+  dist[src-1] = 0;
+  in_tree[src-1] = true;
 }
 
-static void prim_init(graph_t graph, int src, float *cost, int *parent) {
-    dijkistra_init(graph, src, cost, parent);
+static void prim_init(graph_t graph, int src, float *cost, int *parent, bool *in_tree) {
+    dijkistra_init(graph, src, cost, parent, in_tree);
 }
 
 static void dijkistra_relax(int u, int v, int weight, float *dist, int *parent) {
@@ -42,13 +44,15 @@ static void prim_relax(int u, int v, int weight, float *cost, int *parent) {
 static int *dijkistra_prim_body(
     graph_t graph,
     int src,
-    void (*init)(graph_t, int, float*, int*),
+    void (*init)(graph_t, int, float*, int*, bool*),
     void (*relax)(int, int, int, float*, int*)
     ) {
+    
     int size = get_dim(graph);
     float *dist = new float[size];
     int *parent = new int[size];
-    init(graph, src, dist, parent);
+    bool *in_tree = new bool[size];
+    init(graph, src, dist, parent, in_tree);
 
     pq_t pq = NULL;
     for(int i=0; i<size; i++)
@@ -56,12 +60,15 @@ static int *dijkistra_prim_body(
 
     while(!is_pq_empty(pq)) {
         int u = pq_dequeue(pq);
+        in_tree[u] = true;
         adj_list_t neighbors = get_adj_list(graph, u+1);
         while(neighbors != NULL) {
             int v = get_adj_node(neighbors);
             float weight = get_adj_weight(neighbors);
-            relax(u, v-1, weight, dist, parent);
-            pq = decrease_priority(pq, v-1, dist[v-1]);
+            if(!in_tree[v-1]) {
+                relax(u, v-1, weight, dist, parent);
+                pq = decrease_priority(pq, v-1, dist[v-1]);
+            }
             neighbors = get_next_adj(neighbors);
         }
     }
@@ -112,7 +119,7 @@ bool is_connected(graph_t graph) {
 bool *connected(graph_t graph, int src, bool show_spanning_tree) {
 
     int size = get_dim(graph);
-    
+
     bool *arrived = new bool[size];
     int *parent = new int[size];
 
@@ -139,7 +146,7 @@ bool *connected(graph_t graph, int src, bool show_spanning_tree) {
             }
         }
     }
-    
+
     for(int i=0; i<size; i++)
         if(!arrived[i])
             return arrived;
@@ -161,7 +168,7 @@ void print_connected_component(graph_t graph) {
     bool *global_arrived = new bool[size];
     for(int i=0; i<size; i++)
         global_arrived[i] = false;
-    
+
     while(true) {
         int local_src = -1;
         for(int i=0; i<size; i++)
@@ -198,9 +205,9 @@ void print_adj(graph_t graph) {
 
 //Stampa un vettore dei padri.
 void print_parent(int *parent, int size) {
-    for(int i=1; i<=size; i++)
-        if(parent[i-1] != -1)
-            cout << "Il padre del nodo " << i << " e' il nodo " << parent[i-1] << endl;
+    for(int i=0; i<size; i++)
+        if(parent[i] != ROOT)
+            cout << "Il padre del nodo " << i+1 << " e' il nodo " << parent[i] << endl;
 }
 
 //Algoritmo di Dijkistra che ritorna l'albero dei cammini minimi radicato in src.
